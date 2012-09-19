@@ -3,12 +3,14 @@
 
 using namespace std;
 
+template<class T>
 struct Node
 {
-    int val;
-    struct Node *ptr;
+    T val;
+    Node<T> *ptr;
 };
 
+template<class T>
 class cirql
 {
     public:
@@ -17,47 +19,49 @@ class cirql
         bool isfull();
         bool isEmpty();
         int size();
-        int frontEle();
-        int dequeue();
-        bool enqueue(int);
+        T frontEle();
+        T dequeue();
+        bool enqueue(T);
         void printQ();
     protected:
     private:
     int N,size_q;
-    Node *front,*rear;
+    Node<T> *front,*rear;
 };
 
-cirql::cirql(int x)
+template<class T>
+cirql<T>::cirql(int x)
 {
     //ctor
     N=x;
     size_q=0;
-    Node *temp;
-    front=new Node;
-    rear=new Node;
+    Node<T> *temp;
+    front=new Node<T>;
+    rear=new Node<T>;
     if(N==0)
     {
         cout<<"Size of the queue can not be 0"<<endl;
         exit(0);
     }
     else
-    temp=new Node;
+    temp=new Node<T>;
     front=temp;
     rear=front;
 
     for(int i=0;i<N;i++)
     {
-        Node *temp2=new Node;
+        Node<T> *temp2=new Node<T>;
         temp->ptr=temp2;
         temp=temp2;
     }
     temp->ptr=rear;
 }
 
-cirql::~cirql()
+template<class T>
+cirql<T>::~cirql()
 {
     //dtor
-    Node *temp;
+    Node<T> *temp;
     for(int i=0;i<N;i++)
     {
 	temp=rear;
@@ -68,7 +72,8 @@ cirql::~cirql()
     cout<<"The memory has been freed"<<endl;
 }
 
-bool cirql::isEmpty()
+template<class T>
+bool cirql<T>::isEmpty()
 {
     if(size_q==0)
     {
@@ -79,19 +84,22 @@ bool cirql::isEmpty()
     return false;
 }
 
-int cirql::size()
+template<class T>
+int cirql<T>::size()
 {
     return size_q;
 }
 
-int cirql::frontEle()
+template<class T>
+T cirql<T>::frontEle()
 {
     return (!isEmpty())?rear->val: 0;
 }
 
-int cirql::dequeue()
+template<class T>
+T cirql<T>::dequeue()
 {
-    int ele;
+    T ele;
     if(size_q==1)
         {
             size_q--;
@@ -109,7 +117,8 @@ int cirql::dequeue()
     return ele;
 }
 
-bool cirql::enqueue(int ele)
+template<class T>
+bool cirql<T>::enqueue(T ele)
 {
     if(isfull())
     {
@@ -126,16 +135,19 @@ bool cirql::enqueue(int ele)
     size_q++;
     return true;
 }
-bool cirql::isfull()
+
+template<class T>
+bool cirql<T>::isfull()
 {
     return (size_q==N)? true: false;
 }
-void cirql::printQ()
+template<class T>
+void cirql<T>::printQ()
 {
     if(!isEmpty())
     {
         cout<<"The queue is:\n";
-        Node *temp=new Node;
+        Node<T> *temp=new Node<T>;
         temp=rear;
         while(temp->ptr!=front->ptr)
         {
@@ -152,10 +164,10 @@ int main()
 
 	int S;
 	int c;
-	int e;
-	cout<<"Enter the number of nodes to present in queue: "<<endl;
+	int e;//change the type of the varible to suit your purpose
+	cout<<"Enter the number of nodes to present in queue: ";
 	cin>>S;
-	cirql que(S);
+	cirql<int> que(S);//<int> should be change accordingly
 	while(1)
 	{
 		cout<<"1.EnQ 2.deQ 3.PrintQ 4.SizeofQ 5.First Element 6. Exit: ";

@@ -3,12 +3,14 @@
 
 using namespace std;
 
+template<class T>
 struct Node
 {
-    int val;
-    struct Node *ptr;
+    T val;
+    Node<T> *ptr;
 };
 
+template<class T>
 class sinql
 {
     public:
@@ -16,30 +18,31 @@ class sinql
         ~sinql();
         bool isEmpty();
         int size();
-        int frontEle();
-        int dequeue();
+        T frontEle();
+        T dequeue();
         bool enqueue(int);
         void printQ();
     protected:
     private:
     int N;
-    Node *front,*rear;
+    Node<T> *front,*rear;
 };
 
-sinql::sinql()
+template<class T>
+sinql<T>::sinql()
 {
     N=0;
-    front=new Node;
-    rear=new Node;
+    front=new Node<T>;
+    rear=new Node<T>;
     front=NULL;
     rear=front;
 
 }
 
-
-sinql::~sinql()
+template<class T>
+sinql<T>::~sinql()
 {
-	Node *temp;
+	Node<T> *temp;
 	for(int i=0;i<N-1;i++)
 	{
 	temp=rear;
@@ -49,8 +52,8 @@ sinql::~sinql()
 delete rear;
 }
 
-
-bool sinql::isEmpty()
+template<class T>
+bool sinql<T>::isEmpty()
 {
     if(N==0)
     {
@@ -61,12 +64,14 @@ bool sinql::isEmpty()
     return false;
 }
 
-int sinql::size()
+template<class T>
+int sinql<T>::size()
 {
     return N;
 }
 
-int sinql::frontEle()
+template<class T>
+T sinql<T>::frontEle()
 {
     if(!isEmpty())
     return front->val;
@@ -74,7 +79,8 @@ int sinql::frontEle()
     return 0;
 }
 
-int sinql::dequeue()
+template<class T>
+T sinql<T>::dequeue()
 {
     int ele;
     if(N==1)
@@ -87,7 +93,7 @@ int sinql::dequeue()
     else if(!isEmpty())
     {
         N--;
-        Node *temp=new Node;
+        Node<T> *temp=new Node<T>;
         temp=rear;
         while (temp->ptr!=front)
         temp=temp->ptr;
@@ -100,9 +106,10 @@ int sinql::dequeue()
     return ele;
 }
 
-bool sinql::enqueue(int ele)
+template<class T>
+bool sinql<T>::enqueue(int ele)
 {
-    Node *temp=new Node;
+    Node<T> *temp=new Node<T>;
     temp->val=ele;
     if(rear==NULL)
     {
@@ -116,12 +123,13 @@ bool sinql::enqueue(int ele)
     return true;
 }
 
-void sinql::printQ()
+template<class T>
+void sinql<T>::printQ()
 {
     if(!isEmpty())
     {
         cout<<"the queue is:\n";
-        Node *temp=new Node;
+        Node<T> *temp=new Node<T>;
         temp=rear;
         while(temp->ptr!=NULL)
         {
@@ -136,8 +144,8 @@ int main()
 {
 
 	int c;
-	int e;
-	sinql que;
+	int e;//Change the type to fit to your requirement
+	sinql<int> que;//Change <int> to the same type as variable 'e'
 	while(1)
 	{
 		cout<<"1.EnQ 2.deQ 3.PrintQ 4.SizeofQ 5.First Element 6. Exit: ";

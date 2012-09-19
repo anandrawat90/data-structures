@@ -13,12 +13,12 @@ class cirqa
 	    r=0;
 	    N=x;
 	    queue=new T[N];
-	    cout<<"A queue of size "<<N<<" has been created!"<<endl;
+	    cout<<"A queue has been created!"<<endl;
 	}
         ~cirqa()
 	{
 	    delete[] queue;
-	    cout<<"The queue of size "<<N<<" has been deleted!"<<endl;
+	    cout<<"The queue has been deleted!"<<endl;
 	}
 
         bool isEmpty()
@@ -44,6 +44,7 @@ class cirqa
 	    return queue[f];
 
 	}
+
         T dequeue()
 	{
 	    if(isEmpty())
@@ -57,6 +58,19 @@ class cirqa
 		f=((f+1)%N);
 		return ele;
 	    }
+	}
+
+	T firstele()
+	{
+		if(isEmpty())
+		{
+			cout<<"The Queue is empty"<<endl;
+			return NIL;
+		}
+		else
+		{
+			return queue[f];
+		}
 	}
 
         bool enqueue(T ele)
@@ -88,7 +102,6 @@ class cirqa
 		{
 		    cout<<queue[i]<<endl;
 		}
-		//cout<<"End of the queue"<<r<<"--"<<f<<endl;
 	}
     protected:
     private:
@@ -110,7 +123,7 @@ int main()
 	cirqa <char> que(n+1);// the extra space since N%N=0 and 0%N=0
 	while(1)
 	{
-		cout<<"1.enQ 2.deQ 3.printQ 4.sizeofQ 5.exit"<<endl;
+		cout<<"1.EnQ 2.DeQ 3.PrintQ 4.SizeofQ 5.First Element 6.Exit: ";
 		cin>>c;
 		switch(c)
 		{
@@ -131,6 +144,9 @@ int main()
 				cout<<que.size()<<endl;
 				break;
 			case 5:
+				cout<<"The first element to popped is: "<<que.firstele()<<endl;
+				break;
+			case 6:
 				return 0;
 				break;
 			default:
